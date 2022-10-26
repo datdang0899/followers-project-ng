@@ -1,0 +1,19 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+  <label for="name">Name</label>
+  <input type="text" name="name" formControlName="name" class="form-control" />
+  <div *ngIf="" class="alert alert-danger">
+    name is required
+  </div>
+  <div class="form-group" formGroupName="contact">
+    <label for="email">Email</label>
+    <input type="text" name="email" formControlName="email" />
+    <label for="phone">Phone</label>
+    <input type="text" name="phone" formControlName="phone" />
+  </div>
+  <ul>
+    <li *ngFor="let topic of topics.controls">
+      {{ topic.value | titlecase }}
+    </li>
+  </ul>
+  <button class="btn btn-info">submit</button>
+</form>

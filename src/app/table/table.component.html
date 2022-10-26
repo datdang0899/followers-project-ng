@@ -1,0 +1,273 @@
+<div class="d-flex justify-content-between w-100 mb-4 align-items-center">
+  <h4>Table product :</h4>
+  <button
+    class="btn btn-success font-weight-bold"
+    data-toggle="modal"
+    data-target="#modalAdd"
+    (click)="onAdd()"
+  >
+    Add Product
+  </button>
+</div>
+<table class="table">
+  <thead>
+    <tr>
+      <th *ngFor="let col of columns" scope="col">{{ col.title }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of data">
+      <td *ngFor="let col of columns" scope="row">
+        {{ item[col.path] }}
+        <i
+          *ngIf="col.content == 'edit'"
+          class="fa fa-pencil-square-o btn btn-outline-primary"
+          data-toggle="modal"
+          data-target="#editModal"
+          (click)="onEdit(item.id)"
+        ></i>
+        <i
+          *ngIf="col.content == 'remove'"
+          class="fa fa-trash btn btn-outline-danger"
+          data-toggle="modal"
+          data-target="#removeModal"
+          (click)="onRemove(item.id)"
+        ></i>
+      </td>
+    </tr>
+
+    <!-- modal of add -->
+
+    <div
+      class="modal fade"
+      id="modalAdd"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="modalAddLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-uppercase" id="modalAddLabel">
+              Add Product
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="form">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input
+                  type="text"
+                  formControlName="name"
+                  class="form-control"
+                />
+                <div
+                  class="alert alert-danger"
+                  *ngIf="name.touched && name.invalid"
+                >
+                  <div *ngIf="name.hasError('required')">name is required.</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="category">Category</label>
+                <input
+                  type="text"
+                  name="category"
+                  formControlName="category"
+                  class="form-control"
+                />
+                <div
+                  class="alert alert-danger"
+                  *ngIf="category.touched && category.invalid"
+                >
+                  <div *ngIf="category.hasError('required')">
+                    category is required.
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="origin">Origin</label>
+                <input
+                  type="text"
+                  name="origin"
+                  formControlName="origin"
+                  class="form-control"
+                />
+                <div
+                  class="alert alert-danger"
+                  *ngIf="origin.touched && origin.invalid"
+                >
+                  <div *ngIf="origin.hasError('required')">
+                    origin is required.
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group d-flex justify-content-end mt-4">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-dismiss="modal"
+                >
+                  cancel
+                </button>
+                <button
+                  class="btn btn-warning font-weight-bold ml-2"
+                  [disabled]="form.invalid"
+                  (click)="handleAdd()"
+                  data-dismiss="modal"
+                >
+                  Add Product
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- modal of edit -->
+
+    <div
+      class="modal fade"
+      id="editModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="editModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-uppercase" id="editModalLabel">
+              Edit Product
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="form">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input
+                  type="text"
+                  formControlName="name"
+                  class="form-control"
+                />
+                <div
+                  class="alert alert-danger"
+                  *ngIf="name.touched && name.invalid"
+                >
+                  <div *ngIf="name.hasError('required')">name is required.</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="category">Category</label>
+                <input
+                  type="text"
+                  name="category"
+                  formControlName="category"
+                  class="form-control"
+                />
+                <div
+                  class="alert alert-danger"
+                  *ngIf="category.touched && category.invalid"
+                >
+                  <div *ngIf="category.hasError('required')">
+                    category is required.
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="origin">Origin</label>
+                <input
+                  type="text"
+                  name="origin"
+                  formControlName="origin"
+                  class="form-control"
+                />
+                <div
+                  class="alert alert-danger"
+                  *ngIf="origin.touched && origin.invalid"
+                >
+                  <div *ngIf="origin.hasError('required')">
+                    origin is required.
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group d-flex justify-content-end mt-4">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-dismiss="modal"
+                >
+                  cancel
+                </button>
+
+                <button
+                  (click)="handleEdit()"
+                  data-dismiss="modal"
+                  class="btn btn-warning font-weight-bold ml-2"
+                  [disabled]="form.invalid"
+                >
+                  Save Changes
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- modal of remove -->
+
+    <div
+      class="modal fade"
+      id="removeModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="removeModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5
+              class="modal-title text-uppercase text-center"
+              id="removeModalLabel"
+            >
+              Are you sure you want to delete this product ?
+            </h5>
+          </div>
+          <div class="modal-body d-flex justify-content-around">
+            <button class="btn btn-secondary" data-dismiss="modal">
+              cancel
+            </button>
+            <button
+              class="btn btn-danger font-weight-bold"
+              data-dismiss="modal"
+              (click)="handleRemove()"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </tbody>
+</table>

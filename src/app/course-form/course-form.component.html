@@ -1,0 +1,40 @@
+<form ngForm #f="ngForm" (submit)="onSubmit(f)" class="w-25 mx-auto">
+  <div class="form-group">
+    <label for="nameGroup">Name</label>
+    <input
+      ngModel
+      type="text"
+      name="Name"
+      #name="ngModel"
+      required
+      minlength="5"
+      maxlength="20"
+      class="form-control"
+    />
+    <div *ngIf="name.touched && !name.valid" class="alert alert-danger">
+      <p *ngIf="name.hasError('required')">name is required</p>
+      <p *ngIf="name.hasError('minlength')">
+        name should be 5 minimun 5 characters
+      </p>
+    </div>
+  </div>
+  <div class="selector">
+    <h5>Category :</h5>
+    <select name="formSelect" #cate="ngModel" ngModel required  class="form-control">
+      <option *ngFor="let course of category"  [value]="course.id">
+        {{ course.name }}
+      </option>
+    </select>
+    <div *ngIf="cate.touched && !cate.valid" class="alert alert-danger">category is required</div>
+  </div>
+  <div class="checkbox form-group">
+    <label>
+      <input type="checkbox" ngModel name="isGuarantee" />
+      30-day money-back guarantee
+    </label>
+  </div>
+  <p>
+    {{ f.value | json }}
+  </p>
+  <button class="btn btn-outline-success" [disabled]="!f.valid">submit</button>
+</form>

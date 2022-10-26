@@ -1,0 +1,18 @@
+<div class="card card-pills">
+  <div class="card-header d-flex justify-content-between" (click)="showBody()">
+    <h6>{{ title }}</h6>
+    <i
+      class="fa"
+      [ngClass]="{
+        'fa-chevron-down': !show,
+        'fa-chevron-up': show
+      }"
+      aria-hidden="true"
+    ></i>
+  </div>
+  <div class="card-body" *ngIf="show">
+    <h4>
+      <ng-content></ng-content>
+    </h4>
+  </div>
+</div>

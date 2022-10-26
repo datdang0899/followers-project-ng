@@ -1,0 +1,10 @@
+<div class="star-section m-5">
+  <h2>star section</h2>
+  <i
+    class="fa"
+    [class.fa-star-o]="isActive"
+    [class.fa-star]="!isActive"
+    (click)="togglerStar()"
+    aria-hidden="true"
+  ></i>
+</div>

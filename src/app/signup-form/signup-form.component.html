@@ -1,0 +1,56 @@
+<h2 class="text-capitalize font-weight-bold text-center">Sign up form</h2>
+
+<form [formGroup]="form" (ngSubmit)="login(form.value)" class="w-25 mx-auto">
+  <div formGroupName="account">
+    <div *ngIf="form.errors" class="alert alert-danger">
+      The username or password is invalid
+    </div>
+    <div class="form-group">
+      <label for="username" class="font-weight-bold">username</label>
+      <input
+        type="text"
+        formControlName="username"
+        name="username"
+        class="form-control"
+      />
+      <div *ngIf="username.pending">checking for uniquenness...</div>
+      <div
+        *ngIf="username.touched && username.invalid"
+        class="alert alert-danger"
+      >
+        <div *ngIf="username.errors.required">username is required</div>
+        <div *ngIf="username.errors.minlength">
+          username must contain at least
+          {{ username.errors.minlength.requiredLength }} characters.
+        </div>
+        <div *ngIf="username.errors.cannotContainSpace">
+          username isn't contain space
+        </div>
+        <div *ngIf="username.errors.shouldBeUnique">
+          username is already taken
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="password" class="font-weight-bold">password</label>
+      <input
+        type="password"
+        formControlName="password"
+        name="password"
+        class="form-control"
+      />
+      <div
+        *ngIf="password.touched && password.invalid"
+        class="alert alert-danger"
+      >
+        password is required
+      </div>
+    </div>
+    <button
+      class="btn btn-info ml-auto d-flex text-capitalize font-weight-bold"
+      [disabled]="form.invalid"
+    >
+      sign up
+    </button>
+  </div>
+</form>

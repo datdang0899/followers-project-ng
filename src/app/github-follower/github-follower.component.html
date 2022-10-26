@@ -1,0 +1,15 @@
+<div class="container-fluid">
+  <h2>My Followers :</h2>
+  <ul class="list-group">
+    <li
+      *ngFor="let follower of followers"
+      class="card d-flex flex-row align-items-center list-group-item"
+    >
+      <img [src]="follower.avatar_url" alt="" class="card-img-left" />
+      <div class="card-body">
+        <a [routerLink]="['/followers',follower.id,follower.login]" class="card-title d-block">{{ follower.login }}</a>
+        <a [href]="follower.html_url" class="card-text" target="_blank">{{ follower.html_url }}</a>
+      </div>
+    </li>
+  </ul>
+</div>
